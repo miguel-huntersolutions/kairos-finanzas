@@ -1,0 +1,24 @@
+/* Página de medios de pago: usa los tokens y clases del tablero (.explorador). */
+.explorador .medios-aviso{min-height:1.2em;margin:0;font-size:13px;color:var(--muted)}
+.explorador .medios-aviso.ok{color:var(--good)}
+.explorador .medios-aviso.error{color:var(--bad)}
+.explorador .medios-lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.explorador .medios-grupo{display:flex;flex-direction:column;gap:8px}
+.explorador .medios-grupo h3{font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:8px 0 0;display:flex;gap:8px;align-items:center}
+.explorador .medios-fila,.explorador .medios-nuevo{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:flex-end}
+.explorador .medios-fila{border:1px solid var(--line);border-radius:var(--r);padding:10px}
+.explorador .medios-fila label,.explorador .medios-nuevo label,.explorador .medios-campos label{display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;min-width:0}
+.explorador .medios-nombre{flex:1 1 12rem}
+.explorador label.medios-check{flex-direction:row;align-items:center;gap:6px;text-transform:none;letter-spacing:0;font-size:13px;color:var(--ink)}
+.explorador .medios-medio{border:1px solid var(--line);border-radius:var(--r);padding:12px;display:flex;flex-direction:column;gap:10px;background:var(--panel)}
+.explorador .medios-resumen{display:flex;flex-wrap:wrap;gap:4px 10px;align-items:baseline}
+.explorador .medios-campos{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,10.5rem),1fr));gap:8px 12px;align-items:end}
+.explorador .medios-campos input[type=number]{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:6px 8px;max-width:100%}
+.explorador .medios-campos input,.explorador .medios-campos select{width:100%}
+.explorador .medios-ancho{grid-column:1/-1}
+.explorador .medios-agregar{display:flex;flex-direction:column;gap:10px}
+.explorador .medios-agregar summary{list-style:none;align-self:flex-start}
+.explorador .medios-agregar summary::-webkit-details-marker{display:none}
+.explorador .medios-agregar[open] summary{margin-bottom:10px}
+.explorador .medios-campos input[type=checkbox]{width:auto}
+.explorador .medios-campos .medios-check{align-self:center}

@@ -1,0 +1,13 @@
+{
+  "framework": "nextjs",
+  "crons": [
+    {
+      "path": "/api/cron/recordatorios",
+      "schedule": "*/15 * * * *"
+    },
+    {
+      "path": "/api/cron/respaldo",
+      "schedule": "*/30 * * * *"
+    }
+  ]
+}

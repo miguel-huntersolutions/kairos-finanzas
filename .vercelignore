@@ -1,0 +1,16 @@
+# Lo que el despliegue de Vercel NO debe subir: secretos, datos de la base y lo que no es el tablero.
+volcano/
+db/
+scripts/
+test/
+docs/
+mcp/
+openclaw/
+.git/
+node_modules/
+**/node_modules/
+**/.next/
+**/.vercel/
+*.env
+*.env.*
+*.dump

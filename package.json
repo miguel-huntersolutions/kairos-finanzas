@@ -1,0 +1,27 @@
+{
+  "name": "kairos-finanzas",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Kairos Finanzas: gastos del hogar (Vercel + Neon + finanzas-mcp)",
+  "scripts": {
+    "migraciones": "node scripts/partir-migraciones.mjs",
+    "build:mcp": "esbuild mcp/servidor.ts --bundle --platform=node --target=node22 --format=cjs --outfile=mcp/dist/finanzas-mcp.cjs",
+    "build": "npm run migraciones && npm run build:mcp",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "pg": "^8.13.1",
+    "svix": "^1.76.1",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "^0.3.0",
+    "@types/node": "^22.10.2",
+    "@types/pg": "^8.11.10",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.4"
+  }
+}

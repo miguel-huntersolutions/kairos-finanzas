@@ -1,0 +1,136 @@
+/* Tablero unificado (diseño del explorador VISA original), acotado a .explorador para no
+   chocar con el resto del tablero. */
+.explorador{
+  --bg:#f6f7f8; --panel:#ffffff; --ink:#16212b; --muted:#5d6b78; --line:#dde2e7; --soft:#eef1f4;
+  --accent:#0d6b6e; --accent-ink:#ffffff; --accent-soft:#dcefef; --good:#2c7a4b; --bad:#b4442f; --warn:#a86a10;
+  --font-sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --r:6px;
+  background:var(--bg);color:var(--ink);font-family:var(--font-sans);font-size:14px;line-height:1.45;min-height:100vh;
+}
+@media (prefers-color-scheme: dark){.explorador{
+  --bg:#11171c; --panel:#182129; --ink:#e6ebef; --muted:#97a5b1; --line:#2a3640; --soft:#1f2a33;
+  --accent:#4fb3b5; --accent-ink:#0b1b1c; --accent-soft:#1d3a3c; --good:#6cc28f; --bad:#ef8a73; --warn:#e3a94a; color-scheme:dark}}
+.explorador .wrap{max-width:1200px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px;display:flex;flex-direction:column;gap:16px}
+.explorador header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px}
+.explorador h1{font-family:var(--font-serif);font-weight:400;font-size:clamp(1.5rem,3.6vw,2.1rem);margin:0;text-wrap:balance;line-height:1.15}
+.explorador .sub{color:var(--muted);margin:4px 0 0;max-width:64ch}
+.explorador .head-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.explorador .save-state{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.explorador .save-state i{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+.explorador .save-state.ok i{background:var(--good)} .explorador .save-state.local i{background:var(--warn)}
+.explorador .bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;display:flex;flex-direction:column;gap:10px}
+.explorador .tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.explorador .tabs button{all:unset;cursor:pointer;padding:6px 12px;border-radius:999px;color:var(--muted);font-weight:500;white-space:nowrap}
+.explorador .tabs button[aria-selected="true"]{background:var(--ink);color:var(--panel)}
+.explorador .tabs button:focus-visible,.explorador .btn:focus-visible,.explorador select:focus-visible,.explorador input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.explorador .filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.explorador .filters label{display:flex;flex-direction:column;gap:2px;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;min-width:0}
+.explorador select,.explorador input[type=search],.explorador input[type=text]{font:inherit;font-size:14px;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:6px 8px;max-width:100%}
+.explorador .filters input[type=search]{width:min(16rem,100%)}
+.explorador .btn{font:inherit;cursor:pointer;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:var(--r);padding:6px 10px;font-size:13px;text-decoration:none;display:inline-block}
+.explorador .btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.explorador .btn.ghost{background:transparent}
+.explorador .btn:disabled,.explorador input:disabled{opacity:.5;cursor:default}
+.explorador .chips{display:flex;flex-wrap:wrap;gap:6px}
+.explorador .chip{font:inherit;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);color:var(--ink);border-radius:999px;padding:3px 10px}
+.explorador .chip i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.explorador .chip[aria-pressed="true"]{border-color:var(--ink);background:var(--soft)}
+.explorador .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,24rem),1fr));gap:16px}
+.explorador .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,11rem),1fr));gap:12px}
+.explorador .panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;min-width:0;display:flex;flex-direction:column;gap:10px}
+.explorador .panel h2{font-size:15px;font-weight:600;margin:0}
+.explorador .panel .note{color:var(--muted);font-size:12.5px;margin:0}
+.explorador .kpi .l{font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.explorador .kpi .v{font-family:var(--font-mono);font-size:clamp(1.25rem,2.6vw,1.6rem);font-weight:500;font-variant-numeric:tabular-nums}
+.explorador .kpi .d{font-size:12px;color:var(--muted)}
+.explorador .up{color:var(--bad)} .explorador .down{color:var(--good)}
+.explorador .chart{position:relative;width:100%;min-width:0}
+.explorador .chart svg{display:block;width:100%;height:auto}
+.explorador .chart text{fill:var(--muted);font-family:var(--font-sans);font-size:11px}
+.explorador .chart .lab{fill:var(--ink)}
+.explorador .chart .clickable{cursor:pointer}
+.explorador #tip{position:fixed;z-index:20;pointer-events:none;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);box-shadow:0 6px 24px rgba(0,0,0,.14);padding:6px 9px;font-size:12px;max-width:260px}
+.explorador #tip .h{color:var(--muted);margin-bottom:2px}
+.explorador #tip .row{display:flex;gap:6px;align-items:center;font-variant-numeric:tabular-nums}
+.explorador #tip .row i{width:8px;height:8px;border-radius:2px;flex:none}
+.explorador .legend{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12px;color:var(--muted)}
+.explorador .legend span{display:inline-flex;align-items:center;gap:5px}
+.explorador .legend i{width:9px;height:9px;border-radius:2px;display:inline-block}
+.explorador .tbl{overflow:auto;max-height:34rem;border:1px solid var(--line);border-radius:var(--r)}
+.explorador table{border-collapse:collapse;width:100%;font-size:13px}
+.explorador th{position:sticky;top:0;background:var(--panel);text-align:left;font-weight:500;color:var(--muted);font-size:12px;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap;z-index:1}
+.explorador th.sortable{cursor:pointer;user-select:none}
+.explorador th[aria-sort=ascending]::after{content:" ↑"} .explorador th[aria-sort=descending]::after{content:" ↓"}
+.explorador td{padding:7px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.explorador td.num,.explorador th.num{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.explorador td .desc{display:block;font-size:12px;color:var(--muted)}
+.explorador td select{font-size:13px;padding:4px 6px;max-width:13rem}
+.explorador tr.sub td{background:var(--soft)}
+.explorador .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:999px;background:var(--accent-soft);color:var(--ink);margin-left:6px;white-space:nowrap}
+.explorador .row-actions{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.explorador .inline{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.explorador .empty{color:var(--muted);padding:12px 0}
+.explorador .more{display:flex;justify-content:center;padding:8px}
+.explorador #toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:30;background:var(--ink);color:var(--panel);border-radius:var(--r);padding:8px 12px;display:flex;gap:12px;align-items:center;font-size:13px;max-width:calc(100% - 32px)}
+.explorador #toast[hidden],.explorador #tip[hidden]{display:none}
+.explorador #toast button{all:unset;cursor:pointer;font-weight:600;text-decoration:underline}
+.explorador .loading{color:var(--muted);padding:24px 0}
+@media (max-width:560px){.explorador .hide-sm{display:none}}
+@media (prefers-reduced-motion:no-preference){.explorador .panel{animation:fade .25s ease-out}@keyframes fade{from{opacity:.4}to{opacity:1}}}
+/* Tablero unificado: estado por compra y banda "Por atender". */
+.explorador .estado{display:inline-block;font-size:12px;padding:1px 8px;border-radius:999px;background:var(--soft);color:var(--muted);white-space:nowrap}
+.explorador .estado.conciliado{background:var(--accent-soft);color:var(--accent)}
+.explorador .estado.pendiente{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.explorador .tag.dup{background:color-mix(in srgb,var(--bad) 14%,transparent);color:var(--bad)}
+.explorador td.tachado{text-decoration:line-through;color:var(--muted)}
+.explorador .atender{border-left:4px solid var(--warn)}
+.explorador .atender ul{margin:6px 0 0;padding-left:18px;display:flex;flex-direction:column;gap:4px}
+.explorador .atender .desc{display:block}
+.explorador .usuario{max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Detalle de compra (diálogo) */
+.explorador dialog#dlg{border:1px solid var(--line);border-radius:var(--r);background:var(--panel);color:var(--ink);padding:16px;width:min(40rem,calc(100vw - 24px));max-height:calc(100dvh - 24px);overflow:auto}
+.explorador dialog#dlg::backdrop{background:rgba(0,0,0,.5)}
+.explorador .dlg-cab{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.explorador .dlg-cab h2{margin:0}
+.explorador .dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;margin:12px 0;font-size:14px}
+.explorador .dl dt{color:var(--muted)}
+.explorador .dl dd{margin:0;overflow-wrap:anywhere}
+.explorador pre.correo{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.5 'IBM Plex Mono',ui-monospace,monospace;background:var(--soft);border:1px solid var(--line);border-radius:var(--r);padding:10px;max-height:50dvh;overflow:auto}
+.explorador .form-revision{display:grid;gap:8px;margin:12px 0;padding:12px;border:1px solid var(--line);border-radius:var(--r)}
+.explorador .form-revision label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+.explorador .form-revision input,.explorador .form-revision select{font-size:16px}
+.explorador .form-revision .descartar{border-top:1px solid var(--line);padding-top:8px}
+.explorador .btn.mini{padding:2px 8px;font-size:12px;margin-top:4px;display:inline-block}
+.explorador .solo-movil{display:none}
+/* Celular */
+@media (max-width:640px){
+  .explorador .bar{position:static}
+  .explorador .solo-movil{display:inline-flex;align-self:flex-start}
+  .explorador .filters{display:none}
+  .explorador .filters.abierto{display:flex}
+  .explorador .filters label{flex:1 1 45%}
+  .explorador .filters select,.explorador .filters input{width:100%;font-size:16px}
+  .explorador select,.explorador input{font-size:16px}
+  .explorador .head-actions{width:100%}
+  .explorador .tbl{max-height:none;border:0;overflow:visible}
+  .explorador .tbl table,.explorador .tbl tbody{display:block;width:100%}
+  .explorador .tbl thead{display:none}
+  .explorador .tbl tr{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;padding:10px;border:1px solid var(--line);border-radius:var(--r);margin-bottom:8px}
+  .explorador .tbl td{display:block;padding:0;border:0;flex:1 1 auto;min-width:0}
+  .explorador .tbl td.num{flex:0 0 auto;font-weight:600}
+  .explorador .tbl td:has(select),.explorador .tbl td:has(.row-actions){flex-basis:100%}
+  .explorador .tbl td select{width:100%}
+  .explorador .tbl .row-actions{justify-content:flex-start}
+  .explorador .atender ul{padding-left:0;list-style:none}
+  .explorador .atender li{padding:8px 0;border-bottom:1px solid var(--line)}
+}
+
+/* Borrado de una compra: aviso de irrecuperable y botón peligroso. */
+.explorador .borrar{margin-top:14px;border-top:1px solid var(--line);padding-top:12px;display:flex;flex-direction:column;gap:8px}
+.explorador .borrar h3{font-size:14px;margin:0}
+.explorador .aviso-irrecuperable{border:1px solid var(--bad);background:color-mix(in srgb,var(--bad) 10%,transparent);color:var(--ink);border-radius:var(--r);padding:10px 12px;font-size:13px}
+.explorador .check-borrar{display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer}
+.explorador .btn.danger{background:var(--bad);color:#fff;border-color:var(--bad)}
+.explorador .btn.danger:disabled{opacity:.45;cursor:not-allowed}

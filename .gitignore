@@ -1,0 +1,11 @@
+node_modules/
+mcp/dist/
+_src/
+*.env
+.DS_Store
+web/.next/
+# Restos locales de la plataforma anterior (no versionar).
+volcano/
+.volcano/
+*.dump
+/.vercel/
